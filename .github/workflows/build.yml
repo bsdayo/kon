@@ -1,0 +1,29 @@
+﻿name: Build and release
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+  build:
+    name: Build and release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8
+
+      - name: Build
+        run: dotnet publish -c Release -o .
+
+      - name: Pack files
+        run: tar -czf "kon-${GITHUB_REF_NAME}.tar.gz" kon LICENSE
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          path: kon-*.tar.gz
