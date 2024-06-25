@@ -1,0 +1,10 @@
+﻿.git/
+.github/
+.idea/
+bin/
+obj/
+publish/
+
+.gitignore
+LICENSE
+*.md
